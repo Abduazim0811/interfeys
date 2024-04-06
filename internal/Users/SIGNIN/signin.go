@@ -150,5 +150,12 @@ func Savatcha(slc []string){
 		}
 		defer filee.Close()
 
+		for _ ,char:=range resault{
+			yozuvchi := bufio.NewWriter(filee)
+			fmt.Fprintln(yozuvchi, char)
+			yozuvchi.Flush()
+		}
+
+		
 	}
 }

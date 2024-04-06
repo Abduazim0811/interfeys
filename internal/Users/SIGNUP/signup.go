@@ -3,10 +3,10 @@ package Signup
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
-	"strconv"
 	"strings"
+	"log"
+	"strconv"
 )
 
 type Signup struct {
@@ -77,10 +77,11 @@ func SIGNUP(s_up Signup) {
 
 	fmt.Println("Siz muvaffaqiyatli kirdingiz🥳🥳🥳")
 	fmt.Println("")
-	product(s_up)
+	Menu()
 }
-func product(s_up Signup) {
+func Menu() {
 	var num string
+	var slc []string
 	file3, err := os.Open("/home/abduazim/Projects/Golang/NT_Homeworks/interfeys/warehouse.txt")
 	if err != nil {
 		log.Fatalf("Faylni ochishda xatolik: %v", err)
@@ -94,14 +95,72 @@ func product(s_up Signup) {
 		arr = append(arr, line)
 		fmt.Println(line)
 	}
-
 	fmt.Println("")
 	fmt.Println("Yuqoridagilardan birini tanlang👆🏻👆🏻👆🏻")
 	fmt.Scanln(&num)
 
-	cnt := 0
+	cnt, cnt2 := 0, 0
+
 	for _, work := range arr {
 		natija := strings.Split(work, " ")
+		
+		if num == natija[0] {
+			fmt.Println("Nechta olmoqchisiz: ")
+			fmt.Scanln(&cnt)
+			n, err := strconv.Atoi(natija[2])
+			if err != nil {
+				fmt.Println("Bu yerda xatolik bor!!!   ", err)
+				return
+			}
+			cnt++
+			sentence := strconv.Itoa(cnt2) + " " + string(natija[1]) + " " + strconv.Itoa(cnt*n)
+			slc=append(slc, sentence)
+			// yozuvchi := bufio.NewWriter(filee)
+			// fmt.Fprintln(yozuvchi, sentence)
+			// yozuvchi.Flush()
+
+			fmt.Println("Yana nimadur olishni hohlaysizmi?")
+			fmt.Println("[1]HA\t[0]YOQ")
+			son:=0
+			fmt.Scanln(&son)
+			if son==0{
+				Savatcha(slc)
+				break
+			}else{
+				Menu()
+			}
+		}
+
+	}
+	// Savatcha()
+}
+func Savatcha(slc []string){
+	fmt.Println("")
+	var resault []string
+
+	fmt.Println("Savatdagi ma'lumotlar")
+	for _,char:=range slc{
+		fmt.Println(char)
+	}
+
+	fmt.Println("Savatdagi maxsulotlarni o'chirishni hohlaysizmi?")
+	fmt.Println("[1]HA\t[0]YOQ")
+	son:=0
+	fmt.Scanln(&son)
+
+	if son==1{
+		fmt.Println("Qaysi malumotlarni o'chirishni hohlaysiz?")
+		for _,char:=range slc{
+			fmt.Println(char)
+		}
+		son2:=0
+		fmt.Scanln(&son2)
+
+		for i,char:=range slc{
+			if i+1!=son2{
+				resault=append(resault, char)
+			}
+		}
 		filee, err := os.OpenFile("/home/abduazim/Projects/Golang/NT_Homeworks/interfeys/savatcha.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
 		if err != nil {
 			fmt.Println("Fayl ochilmadi: ", err)
@@ -109,27 +168,6 @@ func product(s_up Signup) {
 		}
 		defer filee.Close()
 
-		fmt.Println("Nechta olmoqchisiz: ")
-		fmt.Scanln(&cnt)
-		n, err := strconv.Atoi(natija[2])
-		if err != nil {
-			fmt.Println("Bu yerda xatolik bor!!!   ", err)
-			return
-		}
-		sentence := string(natija[1]) + " " + strconv.Itoa(cnt*n)
-
-		yozuvchi := bufio.NewWriter(filee)
-		fmt.Fprintln(yozuvchi, sentence)
-		yozuvchi.Flush()
-		num := 0
-		fmt.Println("Boshqa narsa olishni hohlaysizmi")
-		fmt.Println("[1] HA\t[2]Yo'q")
-		fmt.Scanln(&num)
-		if num == 1 {
-			product(s_up)
-		} else {
-			return
-		}
 	}
 
 }
