@@ -79,12 +79,7 @@ func Menu() {
 
 	for _, work := range arr {
 		natija := strings.Split(work, " ")
-		// filee, err := os.OpenFile("/home/abduazim/Projects/Golang/NT_Homeworks/interfeys/savatcha.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-		// if err != nil {
-		// 	fmt.Println("Fayl ochilmadi: ", err)
-		// 	return
-		// }
-		// defer filee.Close()
+		
 		if num == natija[0] {
 			fmt.Println("Nechta olmoqchisiz: ")
 			fmt.Scanln(&cnt)
@@ -140,6 +135,20 @@ func Savatcha(slc []string){
 		for _,char:=range slc{
 			fmt.Println(char)
 		}
- 
+		son2:=0
+		fmt.Scanln(&son2)
+
+		for i,char:=range slc{
+			if i+1!=son2{
+				resault=append(resault, char)
+			}
+		}
+		filee, err := os.OpenFile("/home/abduazim/Projects/Golang/NT_Homeworks/interfeys/savatcha.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+		if err != nil {
+			fmt.Println("Fayl ochilmadi: ", err)
+			return
+		}
+		defer filee.Close()
+
 	}
 }
