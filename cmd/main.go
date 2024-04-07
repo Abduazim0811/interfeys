@@ -5,7 +5,7 @@ import (
 	"os"
 	sin "Product/internal/Users/SIGNIN"
 	sup "Product/internal/Users/SIGNUP"
-	ad   "Product/Internal/admin"
+	ad  "Product/internal/admin"
 )
 
 func main() {
@@ -29,9 +29,7 @@ func main() {
 			sin.Sign_in()
 		}	
 	} else if son == 2 {
-		// ad.Admin()
-		fmt.Println("Admin panel mavjud emas tez orada qo'shiladi")
-		// pr.PRoduct()
+		ad.Admin()
 	} else {
 		os.Exit(0)
 	}
