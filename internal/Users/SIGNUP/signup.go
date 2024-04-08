@@ -79,9 +79,9 @@ func SIGNUP(s_up Signup) {
 	fmt.Println("")
 	Menu()
 }
+var slc []string
 func Menu() {
 	var num string
-	var slc []string
 	file3, err := os.Open("/home/abduazim/Projects/Golang/NT_Homeworks/interfeys/warehouse.txt")
 	if err != nil {
 		log.Fatalf("Faylni ochishda xatolik: %v", err)
@@ -124,7 +124,7 @@ func Menu() {
 			son:=0
 			fmt.Scanln(&son)
 			if son==0{
-				Savatcha(slc)
+				SIgn_Up()
 				break
 			}else{
 				Menu()
@@ -134,7 +134,11 @@ func Menu() {
 	}
 	// Savatcha()
 }
-func Savatcha(slc []string){
+
+
+func SIgn_Up() {
+	var s_up Signup
+	SIGNUP(s_up)
 	fmt.Println("")
 	var resault []string
 
@@ -167,14 +171,29 @@ func Savatcha(slc []string){
 			return
 		}
 		defer filee.Close()
+		
+		for _ ,char:=range resault{
+			yozuvchi := bufio.NewWriter(filee)
+			fmt.Fprintln(yozuvchi, char)
+			yozuvchi.Flush()
+		}
+		sum:=0
 
+		for _ ,char:= range resault{
+			natija:=strings.Split(char," ")
+			numm,err:=strconv.Atoi(natija[2])
+			if err!=nil{
+				fmt.Println("Xatolik bor: ", err)
+			}
+			sum+=numm
+		}
+
+		if sum>=s_up.Price{
+			fmt.Println("Sotildi")
+		}else{
+			fmt.Println("Xisobizda mag'lag' yetarli emas!!!")
+		}
 	}
-
-}
-
-func SIgn_Up() {
-	var s_up Signup
-	SIGNUP(s_up)
 }
 
 
